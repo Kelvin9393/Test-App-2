@@ -17,9 +17,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RD6-EC-PKh">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBF-eZ-hnD">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Page Added" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHr-yk-cZ7">
+                                <rect key="frame" x="117.5" y="321.5" width="141" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RD6-EC-PKh">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SbX-Ey-Zqm">
                                     <size key="itemSize" width="377" height="556"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -28,7 +38,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PageCell" id="UO1-UD-OsZ" customClass="PageCell" customModule="Test_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1.5" width="377" height="556"/>
+                                        <rect key="frame" x="0.0" y="23.5" width="377" height="556"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="377" height="556"/>
@@ -70,23 +80,40 @@
                             </collectionView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xf6-fw-bLd">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="vDd-Eq-s3F"/>
+                                </constraints>
                                 <items>
-                                    <barButtonItem id="GHm-0m-EM0"/>
-                                    <barButtonItem title="&lt;" id="LqH-F7-BSe"/>
+                                    <barButtonItem image="Previous" id="LqH-F7-BSe">
+                                        <connections>
+                                            <action selector="previousBtnTapped:" destination="BYZ-38-t0r" id="gep-5H-YV5"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ywC-o6-JPf"/>
-                                    <barButtonItem title="&gt;" id="JA1-BG-ExF"/>
+                                    <barButtonItem image="Next" id="JA1-BG-ExF">
+                                        <connections>
+                                            <action selector="nextBtnTapped:" destination="BYZ-38-t0r" id="CrC-Dc-1pL"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
+                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Xf6-fw-bLd" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Khn-qj-Lr1"/>
-                            <constraint firstItem="Xf6-fw-bLd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LR4-5W-ZQ3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Xf6-fw-bLd" secondAttribute="bottom" id="7OF-zf-vTC"/>
+                            <constraint firstItem="FHr-yk-cZ7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7WI-XM-qwj"/>
                             <constraint firstItem="RD6-EC-PKh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LRC-hc-3zc"/>
-                            <constraint firstItem="Xf6-fw-bLd" firstAttribute="top" secondItem="RD6-EC-PKh" secondAttribute="bottom" id="pba-Ik-aLh"/>
-                            <constraint firstItem="Xf6-fw-bLd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rvK-D8-Ubc"/>
+                            <constraint firstItem="FHr-yk-cZ7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tld-gz-IbO"/>
+                            <constraint firstItem="QBF-eZ-hnD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ure-0B-lzf"/>
+                            <constraint firstItem="Xf6-fw-bLd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YgA-9a-yA4"/>
+                            <constraint firstItem="RD6-EC-PKh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dlD-FL-svX"/>
+                            <constraint firstItem="QBF-eZ-hnD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="jSe-s0-3K7"/>
+                            <constraint firstItem="QBF-eZ-hnD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ots-4j-pad"/>
                             <constraint firstItem="RD6-EC-PKh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="sUo-63-OYf"/>
+                            <constraint firstItem="QBF-eZ-hnD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tmP-1K-hIG"/>
                             <constraint firstItem="RD6-EC-PKh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uVY-IN-hho"/>
+                            <constraint firstItem="Xf6-fw-bLd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vsm-Hw-qzF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -104,6 +131,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="RD6-EC-PKh" id="3sM-Tp-zrM"/>
+                        <outlet property="nextButton" destination="JA1-BG-ExF" id="hCZ-jQ-Ih6"/>
+                        <outlet property="noPageLbl" destination="FHr-yk-cZ7" id="7Xj-5d-msB"/>
+                        <outlet property="previousButton" destination="LqH-F7-BSe" id="Z4w-Ju-zkm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -129,4 +159,8 @@
             <point key="canvasLocation" x="-316" y="117"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Next" width="16" height="29"/>
+        <image name="Previous" width="17" height="29"/>
+    </resources>
 </document>

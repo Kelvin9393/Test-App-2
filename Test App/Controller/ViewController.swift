@@ -10,22 +10,27 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    
-    
     struct CollectionViewCellIdentifiers {
         static let pageCell = "PageCell"
         static let noPageCell = "NoPageCell"
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var previousButton: UIBarButtonItem!
+    @IBOutlet weak var noPageLbl: UILabel!
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+    
 //    var pages = [Page]()
     var pages = [Page(), Page(), Page()]
-    var currentPageIndex = 0
-
+    var currentPageIndex: Int? = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        let cellNib = UINib(nibName: CollectionViewCellIdentifiers.noPageCell, bundle: nil)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: CollectionViewCellIdentifiers.noPageCell)
+        noPageLbl.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,7 +40,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     // MARK: - collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pages.count
+        if pages.count == 0 {
+            return 0
+        } else {
+            return pages.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,6 +60,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if pages.count == 0 {
+            currentPageIndex = nil
+            configureButton()
+        } else {
+            currentPageIndex = indexPath.row
+            configureButton()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
     }
@@ -60,21 +79,75 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     @IBAction func addPage(_ sender: UIBarButtonItem) {
-        let indexPath = collectionView.indexPathsForVisibleItems
-        currentPageIndex = indexPath[0].row
+        if currentPageIndex == nil && pages.count == 0 {
+            currentPageIndex = 0
+        }
+        let pageIndex = currentPageIndex!
+        let indexPath = IndexPath(row: pageIndex, section: 0)
         let page = Page()
-        pages.insert(page, at: currentPageIndex)
-        collectionView.insertItems(at: indexPath)
+        pages.insert(page, at: pageIndex)
+        collectionView.insertItems(at: [indexPath])
+        noPageLbl.isHidden = true
     }
     
     @IBAction func deletePage(_ sender: UIBarButtonItem) {
-        let indexPath = collectionView.indexPathsForVisibleItems
-        currentPageIndex = indexPath[0].row
-        pages.remove(at: currentPageIndex)
-        collectionView.deleteItems(at: indexPath)
+        if pages.count > 0 && currentPageIndex != nil {
+            if let pageIndex = currentPageIndex {
+                let indexPath = IndexPath(row: pageIndex, section: 0)
+                let previousIndexPath = IndexPath(row: pageIndex - 1, section: 0)
+                pages.remove(at: pageIndex)
+                collectionView.deleteItems(at: [indexPath])
+                if pages.count == 0 {
+                    noPageLbl.isHidden = false
+                    currentPageIndex = nil
+                }
+                if currentPageIndex == 0 || currentPageIndex == nil {
+                    return
+                } else {
+                    collectionView.scrollToItem(at: previousIndexPath, at: .left, animated: true)
+                }
+            }
+        } else {
+            noPageLbl.isHidden = false
+            return
+        }
     }
     
+    @IBAction func previousBtnTapped(_ sender: UIBarButtonItem) {
+        if currentPageIndex == 0 || currentPageIndex == nil {
+            return
+        }
+        let indexPath = IndexPath(row: currentPageIndex! - 1, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+    }
     
+    @IBAction func nextBtnTapped(_ sender: UIBarButtonItem) {
+        if currentPageIndex == (pages.count - 1) || currentPageIndex == nil {
+            return
+        }
+        let indexPath = IndexPath(row: currentPageIndex! + 1, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+    }
+    
+    func configureButton() {
+        let enabledColor = UIColor(red: 255/255, green: 38/255, blue: 0/255, alpha: 1)
+        let disabledColor = UIColor(red: 255/255, green: 38/255, blue: 0/255, alpha: 0.5)
+        if pages.count < 2 {
+            previousButton.tintColor = disabledColor
+            nextButton.tintColor = disabledColor
+        } else {
+            if currentPageIndex == 0 {
+                previousButton.tintColor = disabledColor
+                nextButton.tintColor = enabledColor
+            } else if currentPageIndex == (pages.count - 1) {
+                previousButton.tintColor = enabledColor
+                nextButton.tintColor = disabledColor
+            } else {
+                previousButton.tintColor = enabledColor
+                nextButton.tintColor = enabledColor
+            }
+        }
+    }
     
 }
 

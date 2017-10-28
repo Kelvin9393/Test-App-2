@@ -14,7 +14,7 @@
 		463873871FA3342D005C7E7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463873851FA3342D005C7E7B /* LaunchScreen.storyboard */; };
 		463873B31FA34816005C7E7B /* PageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463873B21FA34816005C7E7B /* PageCell.swift */; };
 		463873B71FA36943005C7E7B /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463873B61FA36943005C7E7B /* Page.swift */; };
-		4667C2041FA3826F0079C523 /* NoPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4667C2031FA3826F0079C523 /* NoPageCell.xib */; };
+		4662E2471FA45DD000A1E54F /* NoPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4662E2461FA45DD000A1E54F /* NoPageCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		463873881FA3342D005C7E7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		463873B21FA34816005C7E7B /* PageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCell.swift; sourceTree = "<group>"; };
 		463873B61FA36943005C7E7B /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
-		4667C2031FA3826F0079C523 /* NoPageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NoPageCell.xib; path = "Test App/NoPageCell.xib"; sourceTree = SOURCE_ROOT; };
+		4662E2461FA45DD000A1E54F /* NoPageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPageCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +68,7 @@
 				463873831FA3342D005C7E7B /* Assets.xcassets */,
 				463873851FA3342D005C7E7B /* LaunchScreen.storyboard */,
 				463873881FA3342D005C7E7B /* Info.plist */,
-				4667C2031FA3826F0079C523 /* NoPageCell.xib */,
+				4662E2461FA45DD000A1E54F /* NoPageCell.xib */,
 			);
 			path = "Test App";
 			sourceTree = "<group>";
@@ -157,7 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				463873871FA3342D005C7E7B /* LaunchScreen.storyboard in Resources */,
-				4667C2041FA3826F0079C523 /* NoPageCell.xib in Resources */,
+				4662E2471FA45DD000A1E54F /* NoPageCell.xib in Resources */,
 				463873841FA3342D005C7E7B /* Assets.xcassets in Resources */,
 				463873821FA3342D005C7E7B /* Main.storyboard in Resources */,
 			);
