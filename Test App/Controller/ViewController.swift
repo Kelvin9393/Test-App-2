@@ -10,17 +10,11 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    struct CollectionViewCellIdentifiers {
-        static let pageCell = "PageCell"
-        static let noPageCell = "NoPageCell"
-    }
-    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var previousButton: UIBarButtonItem!
     @IBOutlet weak var noPageLbl: UILabel!
     @IBOutlet weak var nextButton: UIBarButtonItem!
     
-//    var pages = [Page]()
     var pages = [Page(), Page(), Page()]
     var currentPageIndex: Int? = 0
     
@@ -28,8 +22,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        let cellNib = UINib(nibName: CollectionViewCellIdentifiers.noPageCell, bundle: nil)
-        collectionView.register(cellNib, forCellWithReuseIdentifier: CollectionViewCellIdentifiers.noPageCell)
         noPageLbl.isHidden = true
     }
 
@@ -40,24 +32,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     // MARK: - collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if pages.count == 0 {
-            return 0
-        } else {
-            return pages.count
-        }
+        return pages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if pages.count == 0 {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCellIdentifiers.noPageCell, for: indexPath)
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCellIdentifiers.pageCell, for: indexPath) as! PageCell
-            let page = pages[indexPath.row]
-            cell.label.text = page.letter
-            cell.label.textColor = page.labelColor
-            cell.webView.backgroundColor = page.webViewColor
-            return cell
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PageCell", for: indexPath) as! PageCell
+        let page = pages[indexPath.row]
+        cell.label.text = page.letter
+        cell.label.textColor = page.labelColor
+        cell.webView.backgroundColor = page.webViewColor
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
