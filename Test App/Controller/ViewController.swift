@@ -76,20 +76,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBAction func deletePage(_ sender: UIBarButtonItem) {
         if pages.count > 0 && currentPageIndex != nil {
-            if let pageIndex = currentPageIndex {
-                let indexPath = IndexPath(row: pageIndex, section: 0)
-                let previousIndexPath = IndexPath(row: pageIndex - 1, section: 0)
-                pages.remove(at: pageIndex)
-                collectionView.deleteItems(at: [indexPath])
-                if pages.count == 0 {
-                    noPageLbl.isHidden = false
-                    currentPageIndex = nil
-                }
-                if currentPageIndex == 0 || currentPageIndex == nil {
-                    return
-                } else {
-                    collectionView.scrollToItem(at: previousIndexPath, at: .left, animated: true)
-                }
+            let pageIndex = currentPageIndex!
+            let previousIndexPath = IndexPath(row: pageIndex - 1, section: 0)
+            let indexPath = IndexPath(row: pageIndex, section: 0)
+            pages.remove(at: pageIndex)
+            collectionView.deleteItems(at: [indexPath])
+            if pageIndex > 0 {
+                collectionView.scrollToItem(at: previousIndexPath, at: .left, animated: true)
+            }
+            if pages.count == 0 {
+                noPageLbl.isHidden = false
+                currentPageIndex = nil
             }
         } else {
             noPageLbl.isHidden = false
