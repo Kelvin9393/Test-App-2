@@ -75,8 +75,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     @IBAction func deletePage(_ sender: UIBarButtonItem) {
-        if pages.count > 0 && currentPageIndex != nil {
-            let pageIndex = currentPageIndex!
+        if pages.count == 0 || currentPageIndex == nil {
+            noPageLbl.isHidden = false
+            return
+        }
+        if let pageIndex = currentPageIndex, pages.count > 0 {
             let previousIndexPath = IndexPath(row: pageIndex - 1, section: 0)
             let indexPath = IndexPath(row: pageIndex, section: 0)
             pages.remove(at: pageIndex)
@@ -88,14 +91,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 noPageLbl.isHidden = false
                 currentPageIndex = nil
             }
-        } else {
-            noPageLbl.isHidden = false
-            return
         }
     }
     
     @IBAction func previousBtnTapped(_ sender: UIBarButtonItem) {
-        if currentPageIndex == 0 || currentPageIndex == nil {
+        if currentPageIndex == 0 || currentPageIndex == nil || pages.count == 0 {
             return
         }
         let indexPath = IndexPath(row: currentPageIndex! - 1, section: 0)
