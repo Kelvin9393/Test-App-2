@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4614D64E1FA6C2A000DAE58E /* NoPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4614D64D1FA6C2A000DAE58E /* NoPageCell.xib */; };
 		4638737D1FA3342D005C7E7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4638737C1FA3342D005C7E7B /* AppDelegate.swift */; };
 		4638737F1FA3342D005C7E7B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4638737E1FA3342D005C7E7B /* ViewController.swift */; };
 		463873821FA3342D005C7E7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463873801FA3342D005C7E7B /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4614D64D1FA6C2A000DAE58E /* NoPageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPageCell.xib; sourceTree = "<group>"; };
 		463873791FA3342D005C7E7B /* Test App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4638737C1FA3342D005C7E7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4638737E1FA3342D005C7E7B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				463873831FA3342D005C7E7B /* Assets.xcassets */,
 				463873851FA3342D005C7E7B /* LaunchScreen.storyboard */,
 				463873881FA3342D005C7E7B /* Info.plist */,
+				4614D64D1FA6C2A000DAE58E /* NoPageCell.xib */,
 			);
 			path = "Test App";
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				463873871FA3342D005C7E7B /* LaunchScreen.storyboard in Resources */,
+				4614D64E1FA6C2A000DAE58E /* NoPageCell.xib in Resources */,
 				463873841FA3342D005C7E7B /* Assets.xcassets in Resources */,
 				463873821FA3342D005C7E7B /* Main.storyboard in Resources */,
 			);

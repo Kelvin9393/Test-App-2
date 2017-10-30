@@ -10,9 +10,12 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    struct CollectionViewCellIdentifiers {
+        static let noPageCell = "NoPageCell"
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var previousButton: UIBarButtonItem!
-    @IBOutlet weak var noPageLbl: UILabel!
     @IBOutlet weak var nextButton: UIBarButtonItem!
     
     var pages = [Page(), Page(), Page()]
@@ -22,7 +25,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        noPageLbl.isHidden = true
+        let cellNib = UINib(nibName: CollectionViewCellIdentifiers.noPageCell, bundle: nil)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: CollectionViewCellIdentifiers.noPageCell)
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,16 +36,24 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     // MARK: - collectionView methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pages.count
+        if pages.count == 0 {
+            return 1
+        } else {
+            return pages.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PageCell", for: indexPath) as! PageCell
-        let page = pages[indexPath.row]
-        cell.label.text = page.letter
-        cell.label.textColor = page.labelColor
-        cell.webView.backgroundColor = page.webViewColor
-        return cell
+        if pages.count == 0 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCellIdentifiers.noPageCell, for: indexPath)
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PageCell", for: indexPath) as! PageCell
+            let page = pages[indexPath.row]
+            cell.label.text = page.letter
+            cell.label.textColor = page.labelColor
+            cell.webView.backgroundColor = page.webViewColor
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -70,26 +82,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let indexPath = IndexPath(row: pageIndex, section: 0)
         let page = Page()
         pages.insert(page, at: pageIndex)
+        if pages.count == 1 {
+            collectionView.reloadData()
+            return
+        }
         collectionView.insertItems(at: [indexPath])
-        noPageLbl.isHidden = true
     }
     
     @IBAction func deletePage(_ sender: UIBarButtonItem) {
         if pages.count == 0 || currentPageIndex == nil {
-            noPageLbl.isHidden = false
             return
         }
         if let pageIndex = currentPageIndex, pages.count > 0 {
             let previousIndexPath = IndexPath(row: pageIndex - 1, section: 0)
             let indexPath = IndexPath(row: pageIndex, section: 0)
             pages.remove(at: pageIndex)
+            if pages.count == 0 {
+                currentPageIndex = nil
+                collectionView.reloadData()
+                return
+            }
             collectionView.deleteItems(at: [indexPath])
             if pageIndex > 0 {
                 collectionView.scrollToItem(at: previousIndexPath, at: .left, animated: true)
-            }
-            if pages.count == 0 {
-                noPageLbl.isHidden = false
-                currentPageIndex = nil
             }
         }
     }
